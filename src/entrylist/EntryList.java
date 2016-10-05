@@ -5,7 +5,7 @@ import budgetgadget.BGDate;
 
 @SuppressWarnings("serial")
 public class EntryList extends Entry{
-	List<Entry> entryList;
+	private List<Entry> entryList;
     
     EntryList(String newDescription, BGDate newDate){
         super(0, newDescription, newDate);

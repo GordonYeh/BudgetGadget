@@ -16,7 +16,7 @@ public class MonthList extends Entry{
 			System.out.println("illegal date");
 		}
 		
-		MonthList sept = new MonthList("Month of sept", new BGDate());
+		MonthList sept = new MonthList(new BGDate());
 		sept.addEntry(23.1, "l1", new BGDate());
 		sept.addEntry(253.1, "l2", d1);
 		sept.addEntry(0.23, "l3", d1);
@@ -42,24 +42,36 @@ public class MonthList extends Entry{
 		
 	}
 	
-	Map<Integer, EntryList> entryMap;
+	private final Map<Integer, EntryList> entryMap;
 	
-	MonthList(String newDescription, BGDate newDate) throws RuntimeException{
-        super(0, newDescription, newDate);
-        entryMap = new TreeMap<>();   
+
+	MonthList(BGDate newDate) throws RuntimeException{
+        super(0, "Entry list for the month " + newDate.day, newDate);
+        entryMap = new TreeMap<>();    
     }
 	
+	/**
+	 * addes a new Entry into entry Map
+	 * @param newCost cost of the Entry
+	 * @param newDescription of the Entry
+	 * @param newDate date the entry is added
+	 */
 	public void addEntry(double newCost, String newDescription, BGDate newDate){
 		Entry newEntry = new Entry(newCost, newDescription, newDate);
 		this.addEntry(newEntry);
 	}
 	
+	/**
+	 * adds newEntry into entryMap 
+	 * @param newEntry Entry to be added into entryMap
+	 * @throws RuntimeException if newEntry is null
+	 */
 	public void addEntry(Entry newEntry) throws RuntimeException{	
 		BGDate entryDate = newEntry.getDate();
 		int key = entryDate.day;
 		
 		if(entryMap.containsKey(key)){
-			entryMap.get(key).addEntry(newEntry);
+			entryMap.get(key).addEntry(newEntry); //will throw exception if newEntry is null
 		}
 		else{
 			String listDescription = "Entry list for a day";
@@ -70,6 +82,13 @@ public class MonthList extends Entry{
 		super.increaseCost(newEntry.getCost());
 	}
 	
+	/**
+	 * remove the entry with a specified day and index
+	 * day > 0 and day < # of days in this month
+	 * @param day the entry is on
+	 * @param ind the index of the entry
+	 * @throws RuntimeException if there is no entries on this particular day
+	 */
 	public void removeEntry(int day, int ind) throws RuntimeException{
 		int key = day;
 		if(entryMap.containsKey(key)){

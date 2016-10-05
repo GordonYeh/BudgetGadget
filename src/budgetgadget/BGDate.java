@@ -17,9 +17,12 @@ Date data formate used for Budget Gadget
 */
 
 public class BGDate implements Serializable{
-    public int year, month, day;
-    private int currentYear;
-    private final int MAX_YEAR_RANGE = 100;
+
+	private static final long serialVersionUID = 1L;
+	public final int year, month, day;
+    private final int currentYear;
+    private final int MAX_YEAR_RANGE = 50;
+    
     /**
      * if no arguments are passed the date defaults to today's date
      */
@@ -28,6 +31,7 @@ public class BGDate implements Serializable{
         Date date = new Date();
         String date_str = dateFormate.format(date);
         year = Integer.parseInt(date_str.substring(0, 4));
+        currentYear = year;
         month = Integer.parseInt(date_str.substring(5, 6));
         day = Integer.parseInt(date_str.substring(7, 8));
     }
@@ -110,16 +114,6 @@ public class BGDate implements Serializable{
     		default:
     			return 40;
     	}
-    }
-    
-    /**
-     * Set the date as the desired date passed
-     * @param date array formated as [yyyy,mm,dd]
-     */
-    public BGDate(int[] date){
-        year = date[0];
-        month = date[1];
-        day = date[2];
     }
     
     /**
