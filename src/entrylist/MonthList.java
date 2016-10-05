@@ -5,53 +5,15 @@ import budgetgadget.BGDate;
 
 @SuppressWarnings("serial")
 public class MonthList extends Entry{
-	public static void main(String args[]){
-		BGDate today = new BGDate();
-		BGDate d1 = new BGDate(2016, 9, 1);
-		BGDate d2 = new BGDate(2016, 9, 2);
-		BGDate d3 = new BGDate(2016, 9, 3);
-		try{
-			BGDate d4 = new BGDate(2300, 4, 30);
-		} catch(Exception e){
-			System.out.println("illegal date");
-		}
-		
-		MonthList sept = new MonthList(new BGDate());
-		sept.addEntry(23.1, "l1", new BGDate());
-		sept.addEntry(253.1, "l2", d1);
-		sept.addEntry(0.23, "l3", d1);
-		sept.addEntry(-102, "l4", d3);
-		
-		try{
-			sept.addEntry(null);
-		} catch(Exception e){
-			System.out.println("couldn't be added");
-		}
-		
-		List<Entry> entries = sept.getEntries(d1);
-		for(Entry i: entries){
-			System.out.println(i.toString());
-		}
-		
-		sept.removeEntry(d1.day, 0);
-		
-		entries = sept.getEntries(d1);
-		for(Entry i: entries){
-			System.out.println(i.toString());
-		}
-		
-	}
-	
 	private final Map<Integer, EntryList> entryMap;
 	
-
 	MonthList(BGDate newDate) throws RuntimeException{
-        super(0, "Entry list for the month " + newDate.day, newDate);
+        super(0, "Entry list for the month of " + newDate.day, newDate);
         entryMap = new TreeMap<>();    
     }
 	
 	/**
-	 * addes a new Entry into entry Map
+	 * adds a new Entry into entry Map
 	 * @param newCost cost of the Entry
 	 * @param newDescription of the Entry
 	 * @param newDate date the entry is added
